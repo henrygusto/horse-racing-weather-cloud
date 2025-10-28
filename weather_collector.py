@@ -136,8 +136,8 @@ class WeatherCollector:
         print(f"[INFO] Using demo schedule with {len(demo_races)} races")
         return demo_races
 
-    def collect_weather_for_race(self, race):
-        """Collect weather for a single race"""
+    def collect_weather_for_race(self, race, max_retries=3):
+        """Collect weather for a single race with retry logic"""
         market_id = race['market_id']
         venue = race['venue']
         race_date = race['race_date']
@@ -152,10 +152,19 @@ class WeatherCollector:
             print(f"   [WARN] SKIP: No coordinates for venue '{venue}'")
             return None
 
-        weather = get_comprehensive_weather(venue, race_datetime)
+        # Retry logic for API timeouts
+        weather = None
+        for attempt in range(max_retries):
+            weather = get_comprehensive_weather(venue, race_datetime)
+            if weather:
+                break
+            if attempt < max_retries - 1:
+                print(f"   [RETRY] Attempt {attempt + 2}/{max_retries}...")
+                import time
+                time.sleep(2)  # Wait 2 seconds between retries
 
         if not weather:
-            print(f"   [ERROR] Failed to fetch weather")
+            print(f"   [ERROR] Failed to fetch weather after {max_retries} attempts")
             return None
 
         print(f"   [OK] Weather fetched")

@@ -138,7 +138,7 @@ def get_comprehensive_weather(venue: str, race_datetime: datetime) -> Optional[D
 
     try:
         logger.info(f"Fetching weather for {venue} at {race_datetime.isoformat()}")
-        response = requests.get(url, params=params, timeout=10)
+        response = requests.get(url, params=params, timeout=30)
 
         if response.status_code != 200:
             logger.error(f"HTTP {response.status_code}")
