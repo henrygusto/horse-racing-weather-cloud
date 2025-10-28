@@ -46,6 +46,7 @@ VENUE_COORDS = {
     "Brighton": {"lat": 50.8248, "lon": -0.1072, "country": "UK", "tz": "Europe/London"},
     "Chester": {"lat": 53.1852, "lon": -2.8932, "country": "UK", "tz": "Europe/London"},
     "Ffos Las": {"lat": 51.7311, "lon": -4.2400, "country": "UK", "tz": "Europe/London"},
+    "Ffos": {"lat": 51.7311, "lon": -4.2400, "country": "UK", "tz": "Europe/London"},  # Alias for Ffos Las
     "Hexham": {"lat": 54.9522, "lon": -2.1245, "country": "UK", "tz": "Europe/London"},
     "Newton Abbot": {"lat": 50.5365, "lon": -3.5920, "country": "UK", "tz": "Europe/London"},
     "Plumpton": {"lat": 50.9216, "lon": -0.0570, "country": "UK", "tz": "Europe/London"},
@@ -61,6 +62,8 @@ VENUE_COORDS = {
     "Belmont Park": {"lat": 40.7155, "lon": -73.7201, "country": "USA", "tz": "America/New_York"},
     "Saratoga": {"lat": 43.0687, "lon": -73.7896, "country": "USA", "tz": "America/New_York"},
     "Pimlico": {"lat": 39.3419, "lon": -76.6653, "country": "USA", "tz": "America/New_York"},
+    "Horseshoe Indianapolis": {"lat": 39.5893, "lon": -85.8245, "country": "USA", "tz": "America/New_York"},
+    "Horseshoe": {"lat": 39.5893, "lon": -85.8245, "country": "USA", "tz": "America/New_York"},  # Alias for Horseshoe Indianapolis
 }
 
 
