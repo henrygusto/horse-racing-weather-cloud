@@ -305,8 +305,17 @@ def main():
     collector = DailyWeatherCollector()
     success, failed = collector.run_collection(test_mode=args.test)
 
-    # Exit with error code if any failures
-    exit(0 if failed == 0 else 1)
+    # Exit with error code only if majority failed or zero succeeded
+    # Allow partial failures (e.g., a few API timeouts) to still commit data
+    if success == 0:
+        print("CRITICAL: All venues failed!")
+        exit(1)
+    elif failed > success:
+        print(f"WARNING: More failures ({failed}) than successes ({success})")
+        exit(1)
+    else:
+        # Success! Even if some venues failed, we got useful data
+        exit(0)
 
 
 if __name__ == '__main__':
