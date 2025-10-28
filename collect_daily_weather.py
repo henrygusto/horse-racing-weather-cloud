@@ -16,6 +16,7 @@ import os
 import sqlite3
 from datetime import datetime
 import argparse
+import time
 
 # Import weather functions (in same directory)
 from weather import get_comprehensive_weather, VENUE_COORDS
@@ -254,6 +255,9 @@ class DailyWeatherCollector:
                 success_count += 1
             else:
                 fail_count += 1
+
+            # Small delay to avoid overwhelming the API
+            time.sleep(0.2)
 
         # Summary
         print()
