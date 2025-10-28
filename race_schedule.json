@@ -1,0 +1,14 @@
+[
+  {
+    "market_id": "example.001",
+    "venue": "Newbury",
+    "race_date": "2025-10-29",
+    "race_time": "14:30"
+  },
+  {
+    "market_id": "example.002",
+    "venue": "Kempton Park",
+    "race_date": "2025-10-29",
+    "race_time": "15:00"
+  }
+]
