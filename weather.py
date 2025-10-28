@@ -13,57 +13,45 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Racecourse/Racetrack Coordinates (UK & USA)
+# Racecourse/Racetrack Coordinates - ONLY venues in database
 VENUE_COORDS = {
-    # UK Racecourses
-    "Newbury": {"lat": 51.4008, "lon": -1.3267, "country": "UK", "tz": "Europe/London"},
-    "Cheltenham": {"lat": 51.9117, "lon": -2.0493, "country": "UK", "tz": "Europe/London"},
+    # UK Racecourses (24 venues)
     "Ascot": {"lat": 51.4088, "lon": -0.6764, "country": "UK", "tz": "Europe/London"},
-    "Kempton Park": {"lat": 51.4175, "lon": -0.3867, "country": "UK", "tz": "Europe/London"},
-    "Lingfield": {"lat": 51.1817, "lon": -0.0100, "country": "UK", "tz": "Europe/London"},
-    "Worcester": {"lat": 52.1886, "lon": -2.2274, "country": "UK", "tz": "Europe/London"},
-    "Aintree": {"lat": 53.4775, "lon": -2.9497, "country": "UK", "tz": "Europe/London"},
-    "York": {"lat": 53.9536, "lon": -1.0353, "country": "UK", "tz": "Europe/London"},
-    "Sandown": {"lat": 51.3867, "lon": -0.3644, "country": "UK", "tz": "Europe/London"},
-    "Haydock": {"lat": 53.4750, "lon": -2.6503, "country": "UK", "tz": "Europe/London"},
-    "Doncaster": {"lat": 53.5229, "lon": -1.0958, "country": "UK", "tz": "Europe/London"},
-    "Newmarket": {"lat": 52.2438, "lon": 0.3611, "country": "UK", "tz": "Europe/London"},
-    "Goodwood": {"lat": 50.8692, "lon": -0.7464, "country": "UK", "tz": "Europe/London"},
-    "Epsom": {"lat": 51.3178, "lon": -0.2617, "country": "UK", "tz": "Europe/London"},
-    "Ayr": {"lat": 55.4583, "lon": -4.6333, "country": "UK", "tz": "Europe/London"},
-    "Newcastle": {"lat": 54.9783, "lon": -1.6178, "country": "UK", "tz": "Europe/London"},
-    "Chepstow": {"lat": 51.6431, "lon": -2.6764, "country": "UK", "tz": "Europe/London"},
-    "Fontwell": {"lat": 50.8667, "lon": -0.6167, "country": "UK", "tz": "Europe/London"},
-    "Ludlow": {"lat": 52.3667, "lon": -2.7333, "country": "UK", "tz": "Europe/London"},
-    "Market Rasen": {"lat": 53.4333, "lon": -0.3333, "country": "UK", "tz": "Europe/London"},
-    "Sedgefield": {"lat": 54.6667, "lon": -1.4667, "country": "UK", "tz": "Europe/London"},
-    "Southwell": {"lat": 53.0833, "lon": -0.9500, "country": "UK", "tz": "Europe/London"},
-    "Uttoxeter": {"lat": 52.9000, "lon": -1.8667, "country": "UK", "tz": "Europe/London"},
-    "Wetherby": {"lat": 53.9333, "lon": -1.3833, "country": "UK", "tz": "Europe/London"},
-    "Wolverhampton": {"lat": 52.5833, "lon": -2.1333, "country": "UK", "tz": "Europe/London"},
     "Bangor-on-Dee": {"lat": 52.9910, "lon": -2.9235, "country": "UK", "tz": "Europe/London"},
     "Bath": {"lat": 51.4183, "lon": -2.4094, "country": "UK", "tz": "Europe/London"},
     "Brighton": {"lat": 50.8248, "lon": -0.1072, "country": "UK", "tz": "Europe/London"},
+    "Chepstow": {"lat": 51.6431, "lon": -2.6764, "country": "UK", "tz": "Europe/London"},
     "Chester": {"lat": 53.1852, "lon": -2.8932, "country": "UK", "tz": "Europe/London"},
-    "Ffos Las": {"lat": 51.7311, "lon": -4.2400, "country": "UK", "tz": "Europe/London"},
-    "Ffos": {"lat": 51.7311, "lon": -4.2400, "country": "UK", "tz": "Europe/London"},  # Alias for Ffos Las
+    "Doncaster": {"lat": 53.5229, "lon": -1.0958, "country": "UK", "tz": "Europe/London"},
+    "Ffos": {"lat": 51.7311, "lon": -4.2400, "country": "UK", "tz": "Europe/London"},
+    "Fontwell": {"lat": 50.8667, "lon": -0.6167, "country": "UK", "tz": "Europe/London"},
+    "Hereford": {"lat": 52.073, "lon": -2.729, "country": "UK", "tz": "Europe/London"},
     "Hexham": {"lat": 54.9522, "lon": -2.1245, "country": "UK", "tz": "Europe/London"},
-    "Newton Abbot": {"lat": 50.5365, "lon": -3.5920, "country": "UK", "tz": "Europe/London"},
+    "Lingfield": {"lat": 51.1817, "lon": -0.0100, "country": "UK", "tz": "Europe/London"},
+    "Newbury": {"lat": 51.4008, "lon": -1.3267, "country": "UK", "tz": "Europe/London"},
+    "Newcastle": {"lat": 54.9783, "lon": -1.6178, "country": "UK", "tz": "Europe/London"},
+    "Newton": {"lat": 50.5365, "lon": -3.5920, "country": "UK", "tz": "Europe/London"},
     "Plumpton": {"lat": 50.9216, "lon": -0.0570, "country": "UK", "tz": "Europe/London"},
     "Ripon": {"lat": 54.1207, "lon": -1.4923, "country": "UK", "tz": "Europe/London"},
+    "Sedgefield": {"lat": 54.6667, "lon": -1.4667, "country": "UK", "tz": "Europe/London"},
+    "Southwell": {"lat": 53.0833, "lon": -0.9500, "country": "UK", "tz": "Europe/London"},
+    "Uttoxeter": {"lat": 52.9000, "lon": -1.8667, "country": "UK", "tz": "Europe/London"},
+    "Wolverhampton": {"lat": 52.5833, "lon": -2.1333, "country": "UK", "tz": "Europe/London"},
+    "Worcester": {"lat": 52.1886, "lon": -2.2274, "country": "UK", "tz": "Europe/London"},
     "Yarmouth": {"lat": 52.6263, "lon": 1.7338, "country": "UK", "tz": "Europe/London"},
 
-    # USA Racetracks
-    "Churchill Downs": {"lat": 38.2048, "lon": -85.7702, "country": "USA", "tz": "America/New_York"},
+    # USA Racetracks (7 venues)
+    "Belmont": {"lat": 40.6723, "lon": -73.8308, "country": "USA", "tz": "America/New_York"},
+    "Canterbury": {"lat": 44.7907, "lon": -93.4828, "country": "USA", "tz": "America/Chicago"},
+    "Churchill": {"lat": 38.2048, "lon": -85.7702, "country": "USA", "tz": "America/New_York"},
+    "Gulfstream": {"lat": 25.9898, "lon": -80.1373, "country": "USA", "tz": "America/New_York"},
+    "Horseshoe": {"lat": 39.5893, "lon": -85.8245, "country": "USA", "tz": "America/New_York"},
     "Keeneland": {"lat": 38.0403, "lon": -84.5909, "country": "USA", "tz": "America/New_York"},
-    "Santa Anita": {"lat": 34.1395, "lon": -118.0377, "country": "USA", "tz": "America/Los_Angeles"},
-    "Del Mar": {"lat": 32.9789, "lon": -117.2651, "country": "USA", "tz": "America/Los_Angeles"},
-    "Gulfstream Park": {"lat": 25.9898, "lon": -80.1373, "country": "USA", "tz": "America/New_York"},
-    "Belmont Park": {"lat": 40.7155, "lon": -73.7201, "country": "USA", "tz": "America/New_York"},
-    "Saratoga": {"lat": 43.0687, "lon": -73.7896, "country": "USA", "tz": "America/New_York"},
-    "Pimlico": {"lat": 39.3419, "lon": -76.6653, "country": "USA", "tz": "America/New_York"},
-    "Horseshoe Indianapolis": {"lat": 39.5893, "lon": -85.8245, "country": "USA", "tz": "America/New_York"},
-    "Horseshoe": {"lat": 39.5893, "lon": -85.8245, "country": "USA", "tz": "America/New_York"},  # Alias for Horseshoe Indianapolis
+    "Laurel": {"lat": 39.1043, "lon": -76.8303, "country": "USA", "tz": "America/New_York"},
+    "Santa": {"lat": 34.1395, "lon": -118.0377, "country": "USA", "tz": "America/Los_Angeles"},
+
+    # Canada Racetracks (1 venue)
+    "Woodbine": {"lat": 43.7075, "lon": -79.6012, "country": "CAN", "tz": "America/Toronto"},
 }
 
 
