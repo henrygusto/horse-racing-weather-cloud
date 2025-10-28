@@ -1,0 +1,51 @@
+name: Collect Daily Weather
+
+on:
+  schedule:
+    # Run every 2 hours at minutes 5, 25, 45 (staggered from race-based collection)
+    - cron: '5 */2 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  collect-daily-weather:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Pull latest changes
+        run: |
+          git pull --rebase || true
+
+      - name: Run daily weather collector
+        run: |
+          python collect_daily_weather.py
+
+      - name: Commit and push weather data
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add data/venue_daily_weather.db
+
+          # Only commit if there are changes
+          if ! git diff --staged --quiet; then
+            git commit -m "Update daily venue weather ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+            git push
+          else
+            echo "No changes to commit"
+          fi
