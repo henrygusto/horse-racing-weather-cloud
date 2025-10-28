@@ -247,17 +247,34 @@ class DailyWeatherCollector:
 
         success_count = 0
         fail_count = 0
+        failed_venues = []
 
+        # First pass: collect all venues
         for venue, coords in venues_to_collect.items():
             venue_data = self.collect_venue_weather(venue, coords)
 
             if venue_data and self.save_to_database(venue_data):
                 success_count += 1
             else:
+                failed_venues.append((venue, coords))
                 fail_count += 1
 
-            # Small delay to avoid overwhelming the API
-            time.sleep(0.2)
+            # Delay to avoid overwhelming the API and prevent timeouts
+            time.sleep(0.5)
+
+        # Retry failed venues once more with longer delay
+        if failed_venues:
+            print()
+            print(f"Retrying {len(failed_venues)} failed venues...")
+            print()
+
+            for venue, coords in failed_venues:
+                time.sleep(2.0)  # Longer delay before retry
+                venue_data = self.collect_venue_weather(venue, coords)
+
+                if venue_data and self.save_to_database(venue_data):
+                    success_count += 1
+                    fail_count -= 1
 
         # Summary
         print()
